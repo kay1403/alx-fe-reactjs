@@ -16,13 +16,6 @@ function App() {
       <Header />
       <MainContent />
       <Footer />
-
-      {/* Task 3: UserProfile */}
-      <UserProfile
-        name="Alice"
-        age={25}
-        bio="Loves hiking and photography"
-      />
     </div>
   );
 }
