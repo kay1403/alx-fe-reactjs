@@ -1,0 +1,14 @@
+function Footer() {
+  return (
+    <footer style={{
+      textAlign: 'center',
+      padding: '10px',
+      backgroundColor: '#222',
+      color: 'white'
+    }}>
+      <p>© 2026 My React App</p>
+    </footer>
+  );
+}
+
+export default Footer;
