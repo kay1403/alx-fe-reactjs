@@ -1,4 +1,3 @@
-// src/App.jsx
 import ProfilePage from './components/ProfilePage';
 import UserContext from './UserContext';
 
@@ -7,7 +6,7 @@ function App() {
 
   return (
     <UserContext.Provider value={userData}>
-      <ProfilePage /> {/* plus de props */}
+      <ProfilePage />
     </UserContext.Provider>
   );
 }
