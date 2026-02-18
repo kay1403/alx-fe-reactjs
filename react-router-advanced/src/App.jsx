@@ -1,37 +1,26 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-
-import Profile from "./Profile";
-import Home from "./Home";
-import Login from "./Login";
-
-function ProtectedRoute({ children }) {
-  const isAuthenticated = false; // simulate login
-  return isAuthenticated ? children : <Navigate to="/login" />;
-}
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import BlogPost from "./components/BlogPost";
+import Profile from "./components/Profile";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-
-        <Route
-          path="/profile/*"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route path="/login" element={<Login />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<Profile />}>
+            <Route path="details" element={<ProfileDetails />} />
+            <Route path="settings" element={<ProfileSettings />} />
+          </Route>
+        </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
