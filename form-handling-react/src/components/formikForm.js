@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function FormikForm() {
@@ -11,59 +11,55 @@ function FormikForm() {
       .email("Invalid email")
       .required("Email is required"),
     password: Yup.string()
-      .min(6, "Minimum 6 characters")
+      .min(6, "Password must be at least 6 characters")
       .required("Password is required")
   });
 
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      email: "",
-      password: ""
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      console.log("Formik Submitted:", values);
-    }
-  });
-
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formik.values.username}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.username && <p>{formik.errors.username}</p>}
-      </div>
+    <Formik
+      initialValues={{
+        username: "",
+        email: "",
+        password: ""
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
+        console.log("Submitted:", values);
+      }}
+    >
+      <Form>
 
-      <div>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.email && <p>{formik.errors.email}</p>}
-      </div>
+        <div>
+          <Field
+            type="text"
+            name="username"
+            placeholder="Username"
+          />
+          <ErrorMessage name="username" component="p" />
+        </div>
 
-      <div>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.password && <p>{formik.errors.password}</p>}
-      </div>
+        <div>
+          <Field
+            type="email"
+            name="email"
+            placeholder="Email"
+          />
+          <ErrorMessage name="email" component="p" />
+        </div>
 
-      <button type="submit">Submit</button>
-    </form>
+        <div>
+          <Field
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+          <ErrorMessage name="password" component="p" />
+        </div>
+
+        <button type="submit">Submit</button>
+
+      </Form>
+    </Formik>
   );
 }
 
